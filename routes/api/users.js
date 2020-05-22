@@ -4,9 +4,21 @@ const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("config");
+const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator");
 
 const User = require("../../models/User");
+
+router.get("/", async (req, res) => {
+  try {
+    const users = await User.find().select("-password");
+
+    res.json(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 router.post(
   "/",
@@ -71,5 +83,20 @@ router.post(
     }
   }
 );
+
+router.put("/edit", auth, async (req, res) => {
+  try {
+    const users = await User.findOneAndUpdate(
+      { _id: req.user.id },
+      { $set: req.body },
+      { new: true }
+    );
+
+    res.json(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 module.exports = router;
