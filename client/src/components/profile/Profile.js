@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import ProfileTop from "./ProfileTop";
 import ProfileAbout from "./ProfileAbout";
 import ProfileExperience from "./ProfileExperience";
@@ -15,10 +15,16 @@ const Profile = ({
   getProfileById,
   profile: { profile, loading },
   auth,
+  history,
 }) => {
   useEffect(() => {
     getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
+
+  const onClick = (e) => {
+    console.log(history);
+    history.goBack();
+  };
 
   return (
     <Fragment>
@@ -26,9 +32,9 @@ const Profile = ({
         <Spinner />
       ) : (
         <Fragment>
-          <Link to="/profiles" className="btn btn-light">
-            Back to Profiles
-          </Link>
+          <button onClick={(e) => onClick(e)} className="btn btn-light">
+            Back
+          </button>
           {auth.isAuthenticated &&
             auth.loading === false &&
             auth.user._id === profile.user._id && (
@@ -85,4 +91,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getProfileById })(Profile);
+export default connect(mapStateToProps, { getProfileById })(
+  withRouter(Profile)
+);
