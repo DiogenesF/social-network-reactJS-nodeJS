@@ -20,6 +20,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import EditProfile from "./components/profile-form/EditProfile";
 import AddEducation from "./components/profile-form/AddEducation";
+import Error from "./components/layout/Error";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -35,43 +36,46 @@ function App() {
       <Router>
         <Fragment>
           <Navbar />
-          <Route exact path="/" component={Landing} />
-          <section className="container">
-            <Alert />
-            <Switch>
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/profiles" component={Profiles} />
-              <Route exact path="/profile/:id" component={Profile} />
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
-              <PrivateRoute exact path="/posts" component={Posts} />
-              <PrivateRoute
-                exact
-                path="/create-profile"
-                component={CreateProfile}
-              />
-              <PrivateRoute
-                exact
-                path="/edit-profile"
-                component={EditProfile}
-              />
-              <PrivateRoute
-                exact
-                path="/add-experience"
-                component={AddExperience}
-              />
-              <PrivateRoute
-                exact
-                path="/add-education"
-                component={AddEducation}
-              />
-              <PrivateRoute
-                exact
-                path="/posts/:postId"
-                component={PostDiscussion}
-              />
-            </Switch>
-          </section>
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <section className="container">
+              <Alert />
+              <Switch>
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/profiles" component={Profiles} />
+                <Route exact path="/profile/:id" component={Profile} />
+                <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                <PrivateRoute exact path="/posts" component={Posts} />
+                <PrivateRoute
+                  exact
+                  path="/create-profile"
+                  component={CreateProfile}
+                />
+                <PrivateRoute
+                  exact
+                  path="/edit-profile"
+                  component={EditProfile}
+                />
+                <PrivateRoute
+                  exact
+                  path="/add-experience"
+                  component={AddExperience}
+                />
+                <PrivateRoute
+                  exact
+                  path="/add-education"
+                  component={AddEducation}
+                />
+                <PrivateRoute
+                  exact
+                  path="/posts/:postId"
+                  component={PostDiscussion}
+                />
+                <Route component={Error} />
+              </Switch>
+            </section>
+          </Switch>
         </Fragment>
       </Router>
     </Provider>

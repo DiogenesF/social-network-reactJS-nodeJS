@@ -22,58 +22,65 @@ const Profile = ({
   }, [getProfileById, match.params.id]);
 
   const onClick = (e) => {
-    console.log(history);
     history.goBack();
   };
 
   return (
     <Fragment>
-      {profile === null || loading ? (
+      {loading ? (
         <Spinner />
       ) : (
         <Fragment>
-          <button onClick={(e) => onClick(e)} className="btn btn-light">
-            Back
-          </button>
-          {auth.isAuthenticated &&
-            auth.loading === false &&
-            auth.user._id === profile.user._id && (
-              <Link to="/edit-profile" className="btn btn-dark">
-                Edit Profile
-              </Link>
-            )}
-          <div className="profile-grid my-1">
-            <ProfileTop profile={profile} />
-            <ProfileAbout profile={profile} />
-            <div className="profile-exp bg-white p-2">
-              <h2 className="text-primary">Experience</h2>
-              {profile.experience.length > 0 ? (
-                <Fragment>
-                  {profile.experience.map((exp) => (
-                    <ProfileExperience key={exp._id} exp={exp} />
-                  ))}
-                </Fragment>
-              ) : (
-                <h4>No experience credentials</h4>
-              )}
-            </div>
-            <div className="profile-edu bg-white p-2">
-              <h2 className="text-primary">Education</h2>
-              {profile.education.length > 0 ? (
-                <Fragment>
-                  {profile.education.map((edu) => (
-                    <ProfileEducation key={edu._id} edu={edu} />
-                  ))}
-                </Fragment>
-              ) : (
-                <h4>No education credentials</h4>
-              )}
-            </div>
+          {profile ? (
+            <div>
+              <button onClick={(e) => onClick(e)} className="btn btn-light">
+                Back
+              </button>
 
-            {profile.githubusername && (
-              <ProfileGithub username={profile.githubusername} />
-            )}
-          </div>
+              {auth.isAuthenticated &&
+                auth.loading === false &&
+                auth.user._id === profile.user._id && (
+                  <Link to="/edit-profile" className="btn btn-dark">
+                    Edit Profile
+                  </Link>
+                )}
+
+              <div className="profile-grid my-1">
+                <ProfileTop profile={profile} />
+                <ProfileAbout profile={profile} />
+                <div className="profile-exp bg-white p-2">
+                  <h2 className="text-primary">Experience</h2>
+                  {profile.experience.length > 0 ? (
+                    <Fragment>
+                      {profile.experience.map((exp) => (
+                        <ProfileExperience key={exp._id} exp={exp} />
+                      ))}
+                    </Fragment>
+                  ) : (
+                    <h4>No experience credentials</h4>
+                  )}
+                </div>
+                <div className="profile-edu bg-white p-2">
+                  <h2 className="text-primary">Education</h2>
+                  {profile.education.length > 0 ? (
+                    <Fragment>
+                      {profile.education.map((edu) => (
+                        <ProfileEducation key={edu._id} edu={edu} />
+                      ))}
+                    </Fragment>
+                  ) : (
+                    <h4>No education credentials</h4>
+                  )}
+                </div>
+
+                {profile.githubusername && (
+                  <ProfileGithub username={profile.githubusername} />
+                )}
+              </div>
+            </div>
+          ) : (
+            <h4>Profile not found..</h4>
+          )}
         </Fragment>
       )}
     </Fragment>

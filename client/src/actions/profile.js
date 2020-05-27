@@ -9,6 +9,7 @@ import {
   ACCOUNT_DELETED,
   GET_PROFILES,
   GET_REPOS,
+  GITHUB_ERROR,
 } from "./types";
 
 export const getCurrentProfile = () => async (dispatch) => {
@@ -70,7 +71,7 @@ export const getGithubRepos = (username) => async (dispatch) => {
     });
   } catch (err) {
     dispatch({
-      type: PROFILE_ERROR,
+      type: GITHUB_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
@@ -93,7 +94,6 @@ export const createProfile = (formData, history, edit = false) => async (
       history.push("/dashboard");
     }
   } catch (err) {
-    console.log(err.response);
     const errors = err.response.data.errors;
 
     if (errors) {
