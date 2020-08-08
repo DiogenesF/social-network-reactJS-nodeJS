@@ -19,12 +19,16 @@ To run the project in your machine, you can do the following:
   https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
   
  After that you'll have to run:
- > $ npm install
+ ```js
+ $ npm install
+ ```
  
  <p> on the root folder and then go into the /client folder and run it again to install all necessary dependencies.
  Then go to the root folder and just run</p>
  
- > $ npm run dev
+ ```js
+ $ npm run dev
+ ```
  
  <p>and it will start the application.</p>
  
