@@ -1,5 +1,6 @@
 # A simple social network
 A simple social network using the MERN stack.
+This application allows developers to create a profile so other developers can see their information. They can also create posts and comments to interact with each other inside the application.
 
 ### You can check the application here: https://socialmedia-mern.herokuapp.com/
 
