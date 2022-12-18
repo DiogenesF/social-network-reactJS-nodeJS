@@ -4,8 +4,6 @@ This application allows developers to create a profile so other developers can s
 
 Using Redux for state management and JWT for authentication
 
-### You can check the application here: https://socialmedia-mern.herokuapp.com/
-
 To run the project in your machine, you can do the following:
   ### In config/default.json:
   ```js
